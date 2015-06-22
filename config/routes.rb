@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   get    'signup'  => 'users#new'
+  post   'upvote'  => 'votes#create'
+  post   'downvote'=> 'votes#destroy'
 
   resources :users
   resources :questions

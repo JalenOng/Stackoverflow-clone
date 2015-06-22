@@ -10,6 +10,7 @@ class QuestionsController < ApplicationController
     def show
         @comment = Comment.new
         @answer = Answer.new
+        @vote = Vote.new
     end
 
     def new

@@ -18,5 +18,10 @@ class VotesController < ApplicationController
 
   end
 
+  def destroy
+
+
+  end
+
 
 end

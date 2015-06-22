@@ -6,7 +6,26 @@
 
 <p>Author: <%= @question.user.username %></p>
 
-<a href="/post/<%= @post.id %>/<%= comment.id %>/upvote">vote up</a>
+
+
+<%= link_to "Upvote", upvote_path %>
+<%= link_to "Downvote", downvote_path, method: :delete %>
+
+
+ <p><div class="col-md-2">
+ <%= form_for(@vote) do |f| %>
+
+ <%= f.hidden_field :question, :value => @question.id %>
+
+ <%= f.submit "Upvote", value: "" class: "btn btn-default" %>
+ <% end %>
+ </div></p>
+
+ <p><div class="col-md-2">
+
+
+ </div></p>
+
 
  <% @question.comments.each do |x| %>
 
