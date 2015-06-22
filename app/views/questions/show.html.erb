@@ -1,0 +1,44 @@
+
+<h1><%= @question.title%></h1>
+
+<p>Text: <%= @question.text %></p>
+
+
+<p>Author: <%= @question.user.username %></p>
+
+<a href="/post/<%= @post.id %>/<%= comment.id %>/upvote">vote up</a>
+
+ <% @question.comments.each do |x| %>
+
+ <p>Comment(s):<%= x.text %></p>
+ <% end %>
+
+
+  <% @question.answers.each do |x| %>
+
+  <p>Answer(s):<%= x.text %></p>
+  <% end %>
+
+
+  <%= form_for(@comment) do |f| %>
+
+  <%= f.label :Add_Comment %>
+  <%= f.text_area :text, class: 'form-control' %>
+  <%= f.hidden_field :question, :value => @question.id %>
+
+  <%= f.submit "Comment", class: "btn btn-primary" %>
+ <% end %>
+
+ <br>
+ <br>
+ <hr>
+ <br>
+
+  <%= form_for(@answer) do |f| %>
+
+  <%= f.label :Add_Answer %>
+  <%= f.text_area :text, class: 'form-control' %>
+  <%= f.hidden_field :question, :value => @question.id %>
+
+  <%= f.submit "If you're genius, answer this", class: "btn btn-primary" %>
+ <% end %>

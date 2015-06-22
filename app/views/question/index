@@ -1,7 +1,0 @@
-
-<h1>question title</h1>
-<% @questions.each do |x|%>
-<%= x.title %>
-<p>question text</p>
-<%= x.text %>
-<%end%>
