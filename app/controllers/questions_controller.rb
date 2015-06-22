@@ -26,9 +26,16 @@ class QuestionsController < ApplicationController
     end
 
     def edit
+
     end
 
     def update
+
+
+        @question.update(title: params[:question][:title], text: params[:question][:text], user: current_user)
+
+        redirect_to questions_url
+
     end
 
 

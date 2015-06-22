@@ -9,9 +9,15 @@ class VotesController < ApplicationController
 
   def create
 
-    @question = Question.find(params[:answer][:question].to_i)
 
-    @answer = Answer.create(text: params[:answer][:text], question: @question, user: current_user)
+    if params[:vote][:question]
+
+
+    @question = Question.find(params[:vote][:question].to_i)
+
+    end
+
+    @vote = Vote.create(source: @question, user: current_user)
 
 
     redirect_to @question
@@ -19,7 +25,9 @@ class VotesController < ApplicationController
   end
 
   def destroy
-
+    vote = Vote.first
+    vote.destroy
+    redirect_to @question
 
   end
 

@@ -1,0 +1,19 @@
+<h1>Stack No Flow</h1>
+<% @questions.each do |q|%>
+<p>Title: <%= q.title %></p>
+<p>Question text: <%= q.text %></p>
+
+  <% q.answers.each do |a| %>
+
+  <p>Answer: <%= a.text %><p>
+
+     <%= form_for(:answer, url: best_path)  do |f| %>
+
+     <%= f.hidden_field :answer, :value => @a.id %>
+
+     <%= f.submit "Best", class: "btn btn-default" %>
+     <% end %>
+
+ <% end %>
+
+<% end %>

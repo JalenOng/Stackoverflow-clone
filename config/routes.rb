@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get    'signup'  => 'users#new'
   post   'upvote'  => 'votes#create'
   post   'downvote'=> 'votes#destroy'
+  get    'best'    => 'answers#display_best'
+  post   'best'    => 'answers#set_best'
 
   resources :users
   resources :questions

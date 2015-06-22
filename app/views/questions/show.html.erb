@@ -8,8 +8,8 @@
 
 
 
-<%= link_to "Upvote", upvote_path %>
-<%= link_to "Downvote", downvote_path, method: :delete %>
+
+<%= link_to "Downvote", downvote_path %>
 
 
  <p><div class="col-md-2">
@@ -17,14 +17,30 @@
 
  <%= f.hidden_field :question, :value => @question.id %>
 
- <%= f.submit "Upvote", value: "" class: "btn btn-default" %>
+ <%= f.submit "Upvote", class: "btn btn-default" %>
  <% end %>
- </div></p>
+
+ </div>
 
  <p><div class="col-md-2">
+ <%= form_for(@vote) do |f| %>
+
+ <%= f.hidden_field :question, :value => @question.id %>
+
+ <%= f.submit "Downvote", class: "btn btn-default" %>
+ <% end %>
 
 
  </div></p>
+ <br>
+ <br>
+
+ <p>Votes: <%= @question.votes.count %></p>
+
+
+
+
+
 
 
  <% @question.comments.each do |x| %>
