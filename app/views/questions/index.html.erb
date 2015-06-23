@@ -1,9 +1,13 @@
-<li><%= link_to "Sort by latest", root_path %></li>
-<li><%= link_to "Sort by votes", vote_path %></li>
-<li><%= link_to "Sort by trending", trending_path %></li>
+
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><%= link_to "Sort by latest", root_path %></li>
+  <li role="presentation"><%= link_to "Sort by votes", vote_path %></li>
+  <li role="presentation"><%= link_to "Sort by trending", trending_path %></li>
+</ul>
+
 
 <h1>Stack No Flow</h1>
-
+<table>
 <% @questions.each do |x|%>
 <p>Vote count(s): <%= x.vote_count %></p>
 <a href="/questions/<%= x.id %>"><p>Title: <%= x.title %></p></a>
@@ -11,3 +15,4 @@
 <p>Updated at: <%= x.updated_at %></p>
 
 <%end%>
+</table>
