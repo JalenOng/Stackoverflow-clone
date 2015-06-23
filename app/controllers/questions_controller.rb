@@ -3,8 +3,26 @@ class QuestionsController < ApplicationController
     before_filter :set_question, :only => [:show, :edit, :update, :destroy]
 
 
+
     def index
-      @questions = Question.all
+
+      @questions = Question.order(updated_at: :desc)
+
+    end
+
+    def vote
+
+      @questions = Question.order(vote_count: :desc)
+      render 'questions/index'
+
+    end
+
+    def trending
+
+        Question.trending
+        @questions = Question.order(trending: :desc)
+        render 'questions/index'
+
     end
 
     def show

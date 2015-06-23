@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
 
-  before_filter :set_vote, :only => [:show, :edit, :update, :destroy]
+  # before_filter :set_vote, :only => [:create, :edit, :update, :destroy]
   include SessionsHelper
 
   def new
@@ -10,26 +10,60 @@ class VotesController < ApplicationController
   def create
 
 
-    if params[:vote][:question]
+    if params[:vote][:answer]
+      @source = Answer.find(params[:vote][:answer].to_i)
+      @question = @source.question
 
+      voted = Vote.vote_only_once(current_user.id, @source)
 
-    @question = Question.find(params[:vote][:question].to_i)
+    elsif params[:vote][:question]
+      @source = Question.find(params[:vote][:question].to_i)
+      @question = @source
+
+      voted = Vote.vote_only_once(current_user.id, @source)
 
     end
 
-    @vote = Vote.create(source: @question, user: current_user)
+
+    if voted
+      redirect_to @question
+    else
+
+      @vote = Vote.create(source: @source, user: current_user)
+
+      Question.vote_count(@question.id)
+
+      redirect_to @question
+    end
 
 
-    redirect_to @question
+
 
   end
 
   def destroy
-    vote = Vote.first
+
+    if params[:vote][:answer]
+      @source = Answer.find(params[:vote][:answer].to_i)
+      @question = @source.question
+
+    elsif params[:vote][:question]
+      @source = Question.find(params[:vote][:question].to_i)
+      @question = @source
+    end
+
+
+    vote = @source.votes.first
+    # if params[:vote][:question]
+
     vote.destroy
     redirect_to @question
 
+
   end
+
+  private
+
 
 
 end

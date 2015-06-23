@@ -1,6 +1,13 @@
+<li><%= link_to "Sort by latest", root_path %></li>
+<li><%= link_to "Sort by votes", vote_path %></li>
+<li><%= link_to "Sort by trending", trending_path %></li>
+
 <h1>Stack No Flow</h1>
+
 <% @questions.each do |x|%>
-<p>Title: <%= x.title %></p>
+<p>Vote count(s): <%= x.vote_count %></p>
+<a href="/questions/<%= x.id %>"><p>Title: <%= x.title %></p></a>
 <p>Question text: <%= x.text %></p>
+<p>Updated at: <%= x.updated_at %></p>
 
 <%end%>

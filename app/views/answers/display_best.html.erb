@@ -1,19 +1,46 @@
 <h1>Stack No Flow</h1>
+
+<div class="col-md-8">
+
+<% if @user.questions.any? %>
 <% @questions.each do |q|%>
 <p>Title: <%= q.title %></p>
 <p>Question text: <%= q.text %></p>
 
+
+
+  <% if q.answers.any? %>
   <% q.answers.each do |a| %>
 
   <p>Answer: <%= a.text %><p>
 
+
+    <% if a.best == true %>
+    <p> Best answer </p>
+    <% end %>
+
      <%= form_for(:answer, url: best_path)  do |f| %>
 
-     <%= f.hidden_field :answer, :value => @a.id %>
+     <%= f.hidden_field :answer, :value => a.id %>
 
      <%= f.submit "Best", class: "btn btn-default" %>
      <% end %>
 
- <% end %>
+     <hr>
+
+  <% end %>
+  <% end %>
 
 <% end %>
+<% end %>
+
+</div>
+
+
+
+
+
+
+
+
+

@@ -14,4 +14,12 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-require bootstrap
+//=require bootstrap
+
+
+$document.ready(function(){
+
+$('.col-md-8').click(function(){
+$(this).hide();
+});
+});

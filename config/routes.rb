@@ -12,12 +12,14 @@ Rails.application.routes.draw do
   post   'downvote'=> 'votes#destroy'
   get    'best'    => 'answers#display_best'
   post   'best'    => 'answers#set_best'
+  get    'vote'    => 'questions#vote'
+  get    'trending'=> 'questions#trending'
 
   resources :users
   resources :questions
-  resources :comments
+  resources :comments, only: [:new, :create]
   resources :answers
-  resources :votes
+  resources :votes, only: [:new, :create, :destroy]
 
 
   # Example of regular route:

@@ -7,10 +7,7 @@
 <p>Author: <%= @question.user.username %></p>
 
 
-
-
-<%= link_to "Downvote", downvote_path %>
-
+ <% if logged_in? %>
 
  <p><div class="col-md-2">
  <%= form_for(@vote) do |f| %>
@@ -23,7 +20,7 @@
  </div>
 
  <p><div class="col-md-2">
- <%= form_for(@vote) do |f| %>
+ <%= form_for(:vote, url: downvote_path) do |f| %>
 
  <%= f.hidden_field :question, :value => @question.id %>
 
@@ -32,14 +29,13 @@
 
 
  </div></p>
+
+ <% end %>
+
  <br>
  <br>
 
  <p>Votes: <%= @question.votes.count %></p>
-
-
-
-
 
 
 
@@ -49,11 +45,37 @@
  <% end %>
 
 
-  <% @question.answers.each do |x| %>
+  <% @question.answers.each do |answer| %>
+  <p>Answer(s):<%= answer.text %>
 
-  <p>Answer(s):<%= x.text %></p>
+    <% if answer.best == true %>
+    <p> Best answer </p>
+    <% end %>
+
+    <% if logged_in? %>
+
+    <p>Votes: <%= answer.votes.count %></p>
+
+     <%= form_for(@vote) do |f| %>
+
+     <%= f.hidden_field :answer, :value => answer.id %>
+
+     <%= f.submit "Upvote", class: "btn btn-default" %>
+     <% end %>
+
+      <%= form_for(:vote, url: downvote_path) do |f| %>
+
+      <%= f.hidden_field :answer, :value => answer.id %>
+
+      <%= f.submit "Downvote", class: "btn btn-default" %>
+      <% end %>
+
+    <hr>
+  </p>
+  <% end %>
   <% end %>
 
+  <% if logged_in? %>
 
   <%= form_for(@comment) do |f| %>
 
@@ -76,4 +98,5 @@
   <%= f.hidden_field :question, :value => @question.id %>
 
   <%= f.submit "If you're genius, answer this", class: "btn btn-primary" %>
+ <% end %>
  <% end %>

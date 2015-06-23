@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_filter :set_answer, :only => [:show, :edit, :update, :destroy]
+  before_filter :set_answer, :only => [:show, :edit, :update, :destroy,]
   include SessionsHelper
 
   def new
@@ -34,16 +34,26 @@ class AnswersController < ApplicationController
 
   def display_best
 
+   @user = current_user
    @questions = current_user.questions
 
 
   end
 
   def set_best
-    byebug
-    @answer.update(best: true)
 
-    redirect_to root_path
+    @answer = Answer.find(params[:answer][:answer])
+
+    byebug
+    @question = @answer.question
+
+    if Answer.one_best(@question.id)
+      redirect_to best_path
+    else
+      @answer.update(best: true)
+      byebug
+      redirect_to best_path
+    end
 
   end
 
